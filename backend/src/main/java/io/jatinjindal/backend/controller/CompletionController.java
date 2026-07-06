@@ -1,7 +1,8 @@
 package io.jatinjindal.backend.controller;
 
 import io.jatinjindal.backend.service.CompletionService;
-import io.jatinjindal.shared.model.CompletionRequest;
+import io.jatinjindal.backend.model.CompletionRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class CompletionController {
 
     @PostMapping(value = "/completions", produces = MediaType.TEXT_PLAIN_VALUE)
     public String streamInlineSuggestions(
-            @RequestBody CompletionRequest request
+            @Valid @RequestBody CompletionRequest request
     ) {
         return completionService.getSuggestionChunk(request);
     }

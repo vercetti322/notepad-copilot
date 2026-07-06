@@ -1,2 +1,2 @@
 rootProject.name = "notepad-copilot"
-include("daemon", "shared", "backend")
+include("daemon", "backend")

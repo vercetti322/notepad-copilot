@@ -1,7 +1,7 @@
 package io.jatinjindal.backend.service;
 
 import io.jatinjindal.backend.constant.BackendConstants;
-import io.jatinjindal.shared.model.CompletionRequest;
+import io.jatinjindal.backend.model.CompletionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.api.OllamaChatOptions;
