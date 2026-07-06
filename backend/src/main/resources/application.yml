@@ -4,4 +4,5 @@ spring:
   ai:
     ollama:
       chat:
-        model: "deepseek-r1:8b"
+        options:
+          model: "qwen2.5-coder:1.5b"
