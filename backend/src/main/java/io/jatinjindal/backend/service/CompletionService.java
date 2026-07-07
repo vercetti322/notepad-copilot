@@ -1,7 +1,7 @@
 package io.jatinjindal.backend.service;
 
 import static io.jatinjindal.backend.constant.BackendConstants.*;
-import io.jatinjindal.backend.exception.NotepadCopilotBackendException;
+import io.jatinjindal.backend.exception.NotepadCopilotException;
 import io.jatinjindal.backend.model.CompletionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
@@ -36,7 +36,7 @@ public class CompletionService {
             new ProcessBuilder(OLLAMA_PATH, OLLAMA_SERVE)
                     .redirectErrorStream(true).start();
         } catch (IOException e) {
-            throw new NotepadCopilotBackendException(
+            throw new NotepadCopilotException(
                     OLLAMA_FAILED_TO_START, e
             );
         }
