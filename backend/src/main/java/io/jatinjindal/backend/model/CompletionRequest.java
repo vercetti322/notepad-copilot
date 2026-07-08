@@ -12,6 +12,9 @@ public record CompletionRequest(
     @NotBlank(message = "Language cannot be blank")
     String language,
 
+    @NotBlank(message = "model cannot be blank")
+    String model,
+
     @NotNull(message = "Temperature cannot be null")
     @DecimalMin("0.0") @DecimalMax("1.0") Double temperature,
 

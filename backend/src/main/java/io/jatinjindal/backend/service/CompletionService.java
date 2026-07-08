@@ -27,7 +27,7 @@ public class CompletionService {
                 .param(BEFORE_CURSOR, request.beforeCursor())
                 .param(AFTER_CURSOR, request.afterCursor())
         ).options(OllamaChatOptions.builder().maxTokens(request.maxTokens())
-                .temperature(request.temperature())
+                .temperature(request.temperature()).model(request.model())
         ).call().content();
     }
 
