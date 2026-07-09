@@ -74,7 +74,9 @@ public class CompletionService {
     private boolean isOllamaRunning() {
         try {
             HttpURLConnection connection = (HttpURLConnection) OLLAMA_HOST.toURL().openConnection();
-            connection.setConnectTimeout(CONNECTION_TIMEOUT); connection.setReadTimeout(READ_TIMEOUT);
+
+            connection.setConnectTimeout(CONNECTION_TIMEOUT);
+            connection.setReadTimeout(READ_TIMEOUT);
 
             return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
         } catch (IOException e) {
