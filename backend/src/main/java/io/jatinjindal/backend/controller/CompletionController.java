@@ -15,9 +15,7 @@ public class CompletionController {
     private final CompletionService completionService;
 
     @PostMapping(value = "/completions", produces = MediaType.TEXT_PLAIN_VALUE)
-    public String streamInlineSuggestions(
-            @Valid @RequestBody CompletionRequest request
-    ) {
-        return completionService.getSuggestionChunk(request);
+    public String getSuggestion(@Valid @RequestBody CompletionRequest request) {
+        return completionService.getSuggestion(request);
     }
 }

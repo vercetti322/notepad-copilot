@@ -18,7 +18,7 @@ public class CompletionService {
 
     private final ChatClient chatClient;
 
-    public String getSuggestionChunk(CompletionRequest request) {
+    public String getSuggestion(CompletionRequest request) {
         boolean ollamaStatus = isOllamaRunning();
         if (!ollamaStatus) { startOllama(); }
 
