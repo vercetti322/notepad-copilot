@@ -22,16 +22,13 @@ public class CompletionService {
         boolean ollamaStatus = isOllamaRunning();
         if (!ollamaStatus) { startOllama(); }
 
-        String response = chatClient.prompt().user(
-                user -> user.text(COMPLETION_PROMPT)
-                        .param(LANGUAGE, request.language())
-                        .param(BEFORE_CURSOR, request.beforeCursor())
-                        .param(AFTER_CURSOR, request.afterCursor())
+        String response = chatClient.prompt().user(user -> user.text(COMPLETION_PROMPT)
+                .param(LANGUAGE, request.language()).param(BEFORE_CURSOR, request.beforeCursor())
+                .param(AFTER_CURSOR, request.afterCursor())
         ).options(OllamaChatOptions.builder().maxTokens(request.maxTokens())
                 .temperature(request.temperature()).model(request.model())
         ).call().content();
 
-        System.out.println(response);
         return sanitize(Objects.requireNonNull(response),
                 request.beforeCursor(), request.afterCursor()
         );
@@ -68,22 +65,16 @@ public class CompletionService {
 
     private void startOllama() {
         try {
-            new ProcessBuilder(OLLAMA_PATH, OLLAMA_SERVE)
-                    .redirectErrorStream(true).start();
+            new ProcessBuilder(OLLAMA_PATH, OLLAMA_SERVE).redirectErrorStream(true).start();
         } catch (IOException e) {
-            throw new NotepadCopilotException(
-                    OLLAMA_FAILED_TO_START, e
-            );
+            throw new NotepadCopilotException(OLLAMA_FAILED_TO_START, e);
         }
     }
 
     private boolean isOllamaRunning() {
         try {
-            HttpURLConnection connection = (HttpURLConnection) OLLAMA_HOST
-                    .toURL().openConnection();
-
-            connection.setConnectTimeout(CONNECTION_TIMEOUT);
-            connection.setReadTimeout(READ_TIMEOUT);
+            HttpURLConnection connection = (HttpURLConnection) OLLAMA_HOST.toURL().openConnection();
+            connection.setConnectTimeout(CONNECTION_TIMEOUT); connection.setReadTimeout(READ_TIMEOUT);
 
             return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
         } catch (IOException e) {
