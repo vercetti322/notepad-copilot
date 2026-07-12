@@ -7,7 +7,10 @@ public class BackendConstants {
     public static final String BEFORE_CURSOR = "beforeCursor";
     public static final String AFTER_CURSOR = "afterCursor";
     public static final String LANGUAGE = "language";
-    public static final String ERROR = "[ERROR] ";
+    public static final String ERROR = "error";
+    public static final String MODEL = "model";
+    public static final String TEMPERATURE = "temperature";
+    public static final String MAX_TOKENS = "maxTokens";
     public static final String SYSTEM_PROMPT = """
         You are an inline code completion engine.
         
@@ -46,5 +49,14 @@ public class BackendConstants {
     // to be replaced later -- end
     public static final Integer CONNECTION_TIMEOUT = 5000;
     public static final Integer READ_TIMEOUT = 2000;
-    public static final String OLLAMA_FAILED_TO_START = ERROR + "Failed to start the OLLAMA engine.";
+    public static final String OLLAMA_FAILED_TO_START = ERROR + ": Failed to start the OLLAMA engine.";
+    public static final String BEFORE_CURSOR_NOT_BLANK = "Text before the cursor cannot be blank";
+    public static final String AFTER_CURSOR_REQUIRED = "Text after the cursor cannot be null";
+    public static final String LANGUAGE_REQUIRED = "Language cannot be blank";
+    public static final String MODEL_NOT_BLANK = "Model cannot be blank";
+    public static final String TEMPERATURE_REQUIRED = "Temperature cannot be null";
+    public static final String TEMPERATURE_RANGE = "Temperature must be between 0.0 and 1.0";
+    public static final String MAX_TOKENS_REQUIRED = "Max tokens cannot be null";
+    public static final String MAX_TOKENS_MIN = "Max tokens must be at least 8";
+    public static final String MAX_TOKENS_MAX = "Max tokens must be at most 64";
 }

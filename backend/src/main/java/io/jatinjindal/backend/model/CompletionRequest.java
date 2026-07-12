@@ -1,23 +1,30 @@
 package io.jatinjindal.backend.model;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
+import static io.jatinjindal.backend.constant.BackendConstants.*;
 
+@Builder
 public record CompletionRequest(
-    @NotNull(message = "Text before the cursor cannot be null")
+    @NotBlank(message = BEFORE_CURSOR_NOT_BLANK)
     String beforeCursor,
 
-    @NotNull(message = "Text after the cursor cannot be null")
+    @NotNull(message = AFTER_CURSOR_REQUIRED)
     String afterCursor,
 
-    @NotBlank(message = "Language cannot be blank")
+    @NotBlank(message = LANGUAGE_REQUIRED)
     String language,
 
-    @NotBlank(message = "model cannot be blank")
+    @NotBlank(message = MODEL_NOT_BLANK)
     String model,
 
-    @NotNull(message = "Temperature cannot be null")
-    @DecimalMin("0.0") @DecimalMax("1.0") Double temperature,
+    @NotNull(message = TEMPERATURE_REQUIRED)
+    @DecimalMin(value = "0.0", message = TEMPERATURE_RANGE)
+    @DecimalMax(value = "1.0", message = TEMPERATURE_RANGE)
+    Double temperature,
 
-    @NotNull(message = "Max tokens cannot be null")
-    @Min(8) @Max(64) Integer maxTokens
+    @NotNull(message = MAX_TOKENS_REQUIRED)
+    @Min(value = 8, message = MAX_TOKENS_MIN)
+    @Max(value = 64, message = MAX_TOKENS_MAX)
+    Integer maxTokens
 ) { }
