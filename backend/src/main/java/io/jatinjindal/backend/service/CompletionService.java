@@ -1,15 +1,11 @@
 package io.jatinjindal.backend.service;
 
 import static io.jatinjindal.backend.constant.BackendConstants.*;
-import io.jatinjindal.backend.exception.NotepadCopilotException;
 import io.jatinjindal.backend.model.CompletionRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.ollama.api.OllamaChatOptions;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.Objects;
 
 @Service
@@ -17,10 +13,11 @@ import java.util.Objects;
 public class CompletionService {
 
     private final ChatClient chatClient;
+    private final OllamaService ollamaService;
 
     public String getSuggestion(CompletionRequest request) {
-        boolean ollamaStatus = isOllamaRunning();
-        if (!ollamaStatus) { startOllama(); }
+        boolean ollamaStatus = ollamaService.isOllamaRunning();
+        if (!ollamaStatus) { ollamaService.startOllama(); }
 
         String response = chatClient.prompt().user(user -> user.text(COMPLETION_PROMPT)
                 .param(LANGUAGE, request.language()).param(BEFORE_CURSOR, request.beforeCursor())
@@ -61,27 +58,5 @@ public class CompletionService {
         }
 
         return raw;
-    }
-
-    private void startOllama() {
-        try {
-            new ProcessBuilder(OLLAMA_PATH, OLLAMA_SERVE).redirectErrorStream(true).start();
-        } catch (IOException e) {
-            throw new NotepadCopilotException(OLLAMA_FAILED_TO_START, e);
-        }
-    }
-
-    private boolean isOllamaRunning() {
-        try {
-            HttpURLConnection connection = (HttpURLConnection) OLLAMA_HOST
-                    .toURL().openConnection();
-
-            connection.setConnectTimeout(CONNECTION_TIMEOUT);
-            connection.setReadTimeout(READ_TIMEOUT);
-
-            return connection.getResponseCode() == HttpURLConnection.HTTP_OK;
-        } catch (IOException e) {
-            return false;
-        }
     }
 }

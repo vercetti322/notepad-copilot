@@ -1,7 +1,5 @@
 package io.jatinjindal.backend.constant;
 
-import java.net.URI;
-
 public class BackendConstants {
     private BackendConstants() {}
     public static final String BEFORE_CURSOR = "beforeCursor";
@@ -43,7 +41,7 @@ public class BackendConstants {
         Return only the code that belongs at <CURSOR>.
         """;
     // to be replaced later -- start
-    public static final URI OLLAMA_HOST = URI.create("http://localhost:11434/api/tags");
+    public static final String OLLAMA_TAGS_URI = "/api/tags";
     public static final String OLLAMA_PATH = "\"C:\\Users\\HP\\AppData\\Local\\Programs\\Ollama\\ollama.exe\"";
     public static final String OLLAMA_SERVE = "serve";
     // to be replaced later -- end
